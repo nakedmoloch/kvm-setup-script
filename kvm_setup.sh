@@ -23,6 +23,10 @@ systemctl start libvirtd
 usermod -aG kvm $SUDO_USER
 usermod -aG libvirt $SUDO_USER
 
+# Display a list of network interfaces
+echo "Available network interfaces:"
+ip link show | grep -E '^[0-9]+: ' | cut -d' ' -f2 | cut -d':' -f1
+
 # Prompt for network configuration details
 read -p "Enter the Ethernet adapter name (e.g., enp3s0): " eth_adapter
 read -p "Enter the IP address and subnet in CIDR format (e.g., 192.168.0.100/24): " ip_address

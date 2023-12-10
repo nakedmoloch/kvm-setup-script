@@ -63,4 +63,4 @@ EOF
 chmod 600 /etc/netplan/00-installer-config.yaml
 netplan apply
 
-echo "Network configuration applied successfully."
+echo "QEMU/KVM configured successfully."

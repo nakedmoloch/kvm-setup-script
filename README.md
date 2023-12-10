@@ -1,55 +1,66 @@
-# qemu-kvm-dependencies
-Installs all necessary packets for libvirt/qemu/kvm
+# libvirt/qemu/kvm setup script
 
----
+### Ubuntu:
+Installing necessary packets
 
-### Arch-based distros:
 ```sh
-pacman -Sy --needed \
-  qemu \
-  dhclient \
-  openbsd-netcat \
-  virt-viewer \
-  libvirt \
-  dnsmasq \
-  ebtables \
-  virt-install \
-  virt-manager \
-  bridge-utils
+$ sudo apt install -y --needed \
+  qemu-kvm \
+  libvirt-daemon-system \
+  libvirt-clients \
+  bridge-utils \
+  virtinst
 ```
 
----
-
-### Debian-based distros:
+Start *libvirtd* service
 
 ```sh
-apt install -y --needed \
-  qemu \
-  dhclient \
-  openbsd-netcat \
-  virt-viewer \
-  libvirt \
-  dnsmasq \
-  ebtables \
-  virt-install \
-  virt-manager \
-  bridge-utils
+$ sudo systemctl enable libvirtd
+$ sudo systemctl start libvirtd
 ```
 
----
-
-### Redhat-based distros:
+Add permissions
 
 ```sh
-dnf install -y --needed \
-  qemu \
-  dhclient \
-  openbsd-netcat \
-  virt-viewer \
-  libvirt \
-  dnsmasq \
-  ebtables \
-  virt-install \
-  virt-manager \
-  bridge-utils
+$ sudo usermod -aG kvm $USER
+$ sudo usermod -aG libvirt $USER
+```
+
+Set up a bridge network
+
+>Note: Working with **Networking** depends on the specific use case of it. For a server I recommend setting up the main ethernet interface as the *master* of a *bridge* interface (may called br0). As we're on an ubuntu machine, we'll use **netplan**
+
+```sh
+$ sudo vim /etc/netplan/{tab_for_autocomplete}.yml
+```
+and paste the following:
+
+```yml
+network:
+  version: 2
+  renderer: networkd
+
+  ethernets:
+    <your_main_interface>:
+      dhcp4: false 
+      dhcp6: false 
+
+  bridges:
+    br0:
+      interfaces: [<your_main_interface>]
+      addresses: [192.168.0.100/24]
+      # gateway4 is deprecated, use routes instead
+      routes:
+      - to: default
+        via: 192.168.0.1
+        metric: 100
+        on-link: true
+      mtu: 1500
+      nameservers:
+        addresses: [192.168.0.1]
+      parameters:
+        stp: true
+        forward-delay: 4
+      dhcp4: no
+      dhcp6: no
 ```

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Ensure the script is run as root
+# Ensure the script is running as root
 if [[ $EUID -ne 0 ]]; then
     echo "This script must be run as root. Please use sudo."
     exit 1

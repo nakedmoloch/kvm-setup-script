@@ -2,7 +2,7 @@
 
 sudo apt update
 
-sudo apt install -y --needed \
+sudo apt install -y \
   qemu-kvm \
   libvirt-daemon-system \
   libvirt-clients \

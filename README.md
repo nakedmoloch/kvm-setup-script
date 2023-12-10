@@ -1,7 +1,9 @@
-# libvirt/qemu/kvm setup script
+# README.md
 
-### Ubuntu:
-Installing necessary packets
+## Ubuntu:
+{Description}
+
+**Reference: https://ostechnix.com/ubuntu-install-kvm/**
 
 ```sh
 $ sudo apt install -y --needed \
@@ -12,21 +14,23 @@ $ sudo apt install -y --needed \
   virtinst
 ```
 
-Start *libvirtd* service
+### Start *libvirtd* service
 
 ```sh
 $ sudo systemctl enable libvirtd
 $ sudo systemctl start libvirtd
 ```
 
-Add permissions
+### Add permissions
 
 ```sh
 $ sudo usermod -aG kvm $USER
 $ sudo usermod -aG libvirt $USER
 ```
 
-Set up a bridge network
+### Set up a bridge network
+
+**Reference**: https://fabianlee.org/2022/09/20/kvm-creating-a-bridged-network-with-netplan-on-ubuntu-22-04/
 
 >Note: Working with **Networking** depends on the specific use case of it. For a server I recommend setting up the main ethernet interface as the *master* of a *bridge* interface (may called br0). As we're on an ubuntu machine, we'll use **netplan**
 

@@ -4,7 +4,7 @@
 
 *Reference*: https://ostechnix.com/ubuntu-install-kvm/
 
-### Install all necessary packets
+### Install required packages
 
 ```sh
 $ sudo apt install -y \

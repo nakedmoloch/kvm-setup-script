@@ -3,7 +3,9 @@
 ## Ubuntu:
 {Description}
 
-**Reference: https://ostechnix.com/ubuntu-install-kvm/**
+*Reference*: https://ostechnix.com/ubuntu-install-kvm/
+
+### Install all necessary packets
 
 ```sh
 $ sudo apt install -y --needed \
@@ -30,14 +32,14 @@ $ sudo usermod -aG libvirt $USER
 
 ### Set up a bridge network
 
-**Reference**: https://fabianlee.org/2022/09/20/kvm-creating-a-bridged-network-with-netplan-on-ubuntu-22-04/
+*Reference*: https://fabianlee.org/2022/09/20/kvm-creating-a-bridged-network-with-netplan-on-ubuntu-22-04/
 
 >Note: Working with **Networking** depends on the specific use case of it. For a server I recommend setting up the main ethernet interface as the *master* of a *bridge* interface (may called br0). As we're on an ubuntu machine, we'll use **netplan**
 
 ```sh
 $ sudo vim /etc/netplan/{tab_for_autocomplete}.yml
 ```
-and paste the following:
+paste the following:
 
 ```yml
 network:
@@ -68,3 +70,12 @@ network:
       dhcp4: no
       dhcp6: no
 ```
+
+and run: 
+
+```sh
+$ sudo chmod 600 /etc/netplan/{tab_for_autocomplete}.yml
+$ sudo netplan apply
+```
+
+>Note: You may encounter a WARNING message like *WARNING:root:Cannot call Open vSwitch: ovsdb-server.service is not running*. You may ignore it or just do ```$ sudo apt install -y openvswitch-switch```

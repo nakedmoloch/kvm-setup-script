@@ -36,7 +36,7 @@ $ sudo usermod -aG libvirt $USER
 >Note: Working with **Networking** depends on the specific use case of it. For a server I recommend setting up the main ethernet interface as the *master* of a *bridge* interface (may called br0). As we're on an ubuntu machine, we'll use **netplan**
 
 ```sh
-$ sudo vim /etc/netplan/{tab_for_autocomplete}.yml
+$ sudo vim /etc/netplan/00-installer-config.yaml
 ```
 paste the following:
 
@@ -53,16 +53,16 @@ network:
   bridges:
     br0:
       interfaces: [<your_main_interface>]
-      addresses: [192.168.0.100/24]
+      addresses: [<your_IP>/<your_netmask>]
       # gateway4 is deprecated, use routes instead
       routes:
       - to: default
-        via: 192.168.0.1
+        via: <your_gateway_IP>
         metric: 100
         on-link: true
       mtu: 1500
       nameservers:
-        addresses: [192.168.0.1]
+        addresses: [<your_DNS_IP>]
       parameters:
         stp: true
         forward-delay: 4
@@ -73,7 +73,7 @@ network:
 and run: 
 
 ```sh
-$ sudo chmod 600 /etc/netplan/{tab_for_autocomplete}.yml
+$ sudo chmod 600 /etc/netplan/00-installer-config.yaml
 $ sudo netplan apply
 ```
 

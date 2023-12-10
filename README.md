@@ -1,6 +1,6 @@
 # README.md
 
-## Manual installation:
+## Manual installation
 
 *Reference*: https://ostechnix.com/ubuntu-install-kvm/
 

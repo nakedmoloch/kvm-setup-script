@@ -6,6 +6,17 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+# Exit immediately if any command exits with a non-zero status
+set -e
+
+# Function to display a failure message
+on_error() {
+    echo "Error encountered. Exiting..."
+}
+
+# Set up the error handler
+trap on_error EXIT
+
 # Install required packages
 apt update
 apt install -y \
@@ -67,4 +78,8 @@ EOF
 chmod 600 /etc/netplan/00-installer-config.yaml
 netplan apply
 
+# Remove the error handler if the script reaches this point without errors
+trap - EXIT
+
+# Display the success message
 echo "QEMU/KVM configured successfully."

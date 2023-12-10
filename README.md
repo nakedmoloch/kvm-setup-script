@@ -7,7 +7,7 @@
 ### Install all necessary packets
 
 ```sh
-$ sudo apt install -y --needed \
+$ sudo apt install -y \
   qemu-kvm \
   libvirt-daemon-system \
   libvirt-clients \

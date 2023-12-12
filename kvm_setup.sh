@@ -19,6 +19,7 @@ trap on_error EXIT
 
 # Install required packages
 apt update
+apt upgrade -y
 apt install -y \
   qemu-kvm \
   libvirt-daemon-system \

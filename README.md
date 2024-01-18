@@ -1,6 +1,3 @@
-# README.md
-**Use case**: You've just installed ubuntu-server bare metal on a PC & want to get started creating virtual machines through qemu/kvm
-
 ## Manual installation
 
 *Reference*: https://ostechnix.com/ubuntu-install-kvm/
